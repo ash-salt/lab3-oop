@@ -55,8 +55,7 @@ public class CarController {
                 car.move();
                 int x = (int) Math.round(car.getPos()[0]);
                 int y = (int) Math.round(car.getPos()[1]);
-                System.out.println(y);
-                if (x > 460 || x < 0 || y > 500 || y < 0) {
+                if (x > 700 || x < 0 || y > 500 || y < 0) {
                     car.turnLeft();
                     car.turnLeft();
                 }
@@ -81,6 +80,20 @@ public class CarController {
         for (Vehicle car : cars
         ) {
             car.brake(brake);
+        }
+    }
+
+    void turnLeft() {
+        for (Vehicle car : cars
+        ) {
+            car.turnLeft();
+        }
+    }
+
+    void turnRight() {
+        for (Vehicle car : cars
+        ) {
+            car.turnRight();
         }
     }
 }
