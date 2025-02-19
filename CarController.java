@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.ArrayList;
 
 /*
@@ -22,6 +23,7 @@ public class CarController {
     CarView frame;
     // A list of cars, modify if needed
     ArrayList<Vehicle> cars = new ArrayList<>();
+    CarShop<Volvo240> shop = new CarShop<Volvo240>(10, new double[] {300,300});
 
     //methods:
 
@@ -52,16 +54,29 @@ public class CarController {
     private class TimerListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             for (Vehicle car : cars) {
-                car.move();
-                int x = (int) Math.round(car.getPos()[0]);
-                int y = (int) Math.round(car.getPos()[1]);
-                if (x > 700 || x < 0 || y > 500 || y < 0) {
-                    car.turnLeft();
-                    car.turnLeft();
+                if (!car.getStored()) {
+                    car.move();
+                    if ((shop.getPos()[0] < car.getPos()[0] && car.getPos()[0] < shop.getPos()[0] + 101) && (shop.getPos()[1] < car.getPos()[1] && car.getPos()[1] < shop.getPos()[0] + 96)) {
+                        if (car instanceof Volvo240) {
+                            shop.loadCar((Volvo240) car);
+                            car.setPos(shop.getPos());
+
+                        } else {
+                            car.setPos(new double[]{0, 0});
+                            car.turnLeft();
+                            car.turnLeft();
+                        }
+                    }
+                    int x = (int) Math.round(car.getPos()[0]);
+                    int y = (int) Math.round(car.getPos()[1]);
+                    if (x > 700 || x < 0 || y > 500 || y < 0) {
+                        car.turnLeft();
+                        car.turnLeft();
+                    }
+                    frame.drawPanel.moveit(x, y, car);
+                    // repaint() calls the paintComponent method of the panel
+                    frame.drawPanel.repaint();
                 }
-                frame.drawPanel.moveit(x, y, car);
-                // repaint() calls the paintComponent method of the panel
-                frame.drawPanel.repaint();
             }
         }
     }
@@ -69,9 +84,10 @@ public class CarController {
     // Calls the gas method for each car once
     void gas(int amount) {
         double gas = ((double) amount) / 100;
-       for (Vehicle car : cars
-                ) {
-            car.gas(gas);
+       for (Vehicle car : cars) {
+           if (!car.getStored()) {
+               car.gas(gas);
+           }
         }
     }
 
@@ -84,16 +100,18 @@ public class CarController {
     }
 
     void turnLeft() {
-        for (Vehicle car : cars
-        ) {
-            car.turnLeft();
+        for (Vehicle car : cars) {
+            if (!car.getStored()) {
+                car.turnLeft();
+            }
         }
     }
 
     void turnRight() {
-        for (Vehicle car : cars
-        ) {
-            car.turnRight();
+        for (Vehicle car : cars) {
+            if (!car.getStored()) {
+                car.turnRight();
+            }
         }
     }
 }
