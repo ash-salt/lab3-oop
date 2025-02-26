@@ -1,5 +1,6 @@
 import java.awt.*;
 
+import Model.*;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -131,7 +132,7 @@ public class VehicleTest {
         Exception exception = assertThrows(IllegalArgumentException.class,
                 () -> ct.loadCar(scania));
 
-        assertEquals("Vehicle is too large", exception.getMessage());
+        assertEquals("Model.Vehicle is too large", exception.getMessage());
     }
 
     @Test
