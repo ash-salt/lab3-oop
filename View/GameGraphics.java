@@ -1,14 +1,12 @@
 package View;
 
-import Controller.ControlMedium;
-
 import javax.swing.*;
 import java.awt.*;
 
 public class GameGraphics extends JFrame {
     private static final int X = 800;
     private static final int Y = 800;
-    DrawPanel drawPanel = new DrawPanel(X, Y-240);;
+    DrawPanel drawPanel = new DrawPanel(X, Y-240);
     CarView carView = new CarView();
 
     public GameGraphics(String framename){
