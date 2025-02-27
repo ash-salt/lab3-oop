@@ -16,6 +16,12 @@ public class CarShop<T extends Vehicle> {
         this.position = position;
     }
 
+    public void checkCollideWithVehicle(T car) {
+        if ((getPos()[0] < car.getPos()[0] && car.getPos()[0] < getPos()[0] + 101) && (getPos()[1] < car.getPos()[1] && car.getPos()[1] < getPos()[0] + 96)) {
+            loadCar(car);
+        }
+    }
+
     public double[] getPos() {
         return position;
     }

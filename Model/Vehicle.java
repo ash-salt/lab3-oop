@@ -156,4 +156,7 @@ public abstract class Vehicle implements Movable{
     }
 
 
+    public void reset() {
+        setPos(new double[]{0,0});
+    }
 }

@@ -2,6 +2,7 @@ package Controller;
 
 import Model.*;
 import View.CarView;
+import View.GameGraphics;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -21,36 +22,15 @@ public class CarController {
     private final int delay = 50;
     // The timer is started with a listener (see below) that executes the statements
     // each step between delays.
-    private Timer timer = new Timer(delay, new TimerListener());
+    public Timer timer = new Timer(delay, new TimerListener());
 
     // The frame that represents this instance View of the MVC pattern
-    CarView frame;
+    public GameGraphics frame;
     // A list of cars, modify if needed
     ArrayList<Vehicle> cars = new ArrayList<>();
     CarShop<Volvo240> shop = new CarShop<Volvo240>(10, new double[] {300,300});
 
     //methods:
-
-    public static void main(String[] args) {
-        // Instance of this class
-        CarController cc = new CarController();
-
-        Saab95 saab = new Saab95();
-        saab.setPos(new double[] {0,100});
-
-        Scania scania = new Scania();
-        scania.setPos(new double[] {0,200});
-
-        cc.cars.add(new Volvo240());
-        cc.cars.add(saab);
-        cc.cars.add(scania);
-
-        // Start a new view and send a reference of self
-        cc.frame = new CarView("CarSim 1.0", cc);
-
-        // Start the timer
-        cc.timer.start();
-    }
 
     /* Each step the TimerListener moves all the cars in the list and tells the
     * view to update its images. Change this method to your needs.
@@ -60,14 +40,10 @@ public class CarController {
             for (Vehicle car : cars) {
                 if (!car.getStored()) {
                     car.move();
-                    if ((shop.getPos()[0] < car.getPos()[0] && car.getPos()[0] < shop.getPos()[0] + 101) && (shop.getPos()[1] < car.getPos()[1] && car.getPos()[1] < shop.getPos()[0] + 96)) {
-                        if (car instanceof Volvo240) {
-                            shop.loadCar((Volvo240) car);
-                            car.setPos(shop.getPos());
-
-                        } else {
-                            car.setPos(new double[]{0, 0});
-                        }
+                    try {
+                        shop.checkCollideWithVehicle((Volvo240) car);
+                    } catch (RuntimeException ex) {
+                        car.reset();
                     }
                     int x = (int) Math.round(car.getPos()[0]);
                     int y = (int) Math.round(car.getPos()[1]);
@@ -75,13 +51,16 @@ public class CarController {
                         car.turnLeft();
                         car.turnLeft();
                     }
-                    frame.drawPanel.moveit(x, y, car);
+                    //Bör returnera X och Y värdena så att main kan exekvera denna kod istället
+                    frame.getDrawPanel().moveit(x, y, car);
                     // repaint() calls the paintComponent method of the panel
-                    frame.drawPanel.repaint();
+                    frame.getDrawPanel().repaint();
                 }
             }
         }
     }
+
+    public void addCar(Vehicle car) {cars.add(car);}
 
     // Calls the gas method for each car once
     void gas(int amount) {

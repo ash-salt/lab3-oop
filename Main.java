@@ -9,18 +9,18 @@ public class Main {
     public static void main(String[] args) {
         CarController cc = new CarController();
 
-        Saab95 saab = new Saab95();
-        saab.setPos(new double[] {0,100});
+        Volvo240 volvo = new Volvo240(new double[] {0,0});
 
-        Scania scania = new Scania();
-        scania.setPos(new double[] {0,200});
+        Saab95 saab = new Saab95(new double[] {0,100});
 
-        cc.cars.add(new Volvo240());
-        cc.cars.add(saab);
-        cc.cars.add(scania);
+        Scania scania = new Scania(new double[] {0,200});
+
+        cc.addCar(volvo);
+        cc.addCar(saab);
+        cc.addCar(scania);
 
         // Start a new view and send a reference of self
-        cc.frame = new GameGraphics("CarSim 1.0", cc);
+        cc.frame = new GameGraphics("CarSim 1.0");
 
         // Start the timer
         cc.timer.start();

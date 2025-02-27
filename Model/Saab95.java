@@ -7,12 +7,13 @@ public class Saab95 extends Vehicle {
 
     private boolean turboOn;
 
-    public Saab95(){
+    public Saab95(double[] position){
 
         super(2, 125, Color.red, "Model.Saab95");
         //Initierar från car med bestämda värden.
 
 	    turboOn = false;
+        setPos(position);
 
         stopEngine();
 

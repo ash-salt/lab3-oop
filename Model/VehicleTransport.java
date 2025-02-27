@@ -9,11 +9,12 @@ public class VehicleTransport extends Vehicle implements HasFlatbed{
     private ArrayList<Vehicle> storage;
     private boolean rampUp;
 
-    public VehicleTransport() {
+    public VehicleTransport(double[] position) {
         super(2, 80, Color.gray, "Car Transport");
         this.capacity = 10;
         this.storage = new ArrayList<>();
         this.rampUp = false;
+        setPos(position);
     }
 
     public void checkRampUp() {

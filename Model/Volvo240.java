@@ -6,10 +6,11 @@ public class Volvo240 extends Vehicle {
 
     private final static double trimFactor = 1.25;
 
-    public Volvo240(){
+    public Volvo240(double[] position){
 
         super(4, 100, Color.black, "Model.Volvo240");
         stopEngine();
+        setPos(position);
 
     }
 
