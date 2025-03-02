@@ -20,7 +20,7 @@ public class Main {
         cc.addCar(scania);
 
         // Start a new view and send a reference of self
-        cc.frame = new GameGraphics("CarSim 1.0");
+        cc.frame = new GameGraphics("CarSim 1.0", cc);
 
         // Start the timer
         cc.timer.start();

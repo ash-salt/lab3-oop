@@ -15,7 +15,7 @@ import java.util.ArrayList;
 * modifying the model state and the updating the view.
  */
 
-public class CarController {
+public class CarController implements ControlMedium{
     // member fields:
 
     // The delay (ms) corresponds to 20 updates a sec (hz)
@@ -42,8 +42,7 @@ public class CarController {
                     car.move();
                     try {
                         shop.checkCollideWithVehicle((Volvo240) car);
-                    } catch (RuntimeException ex) {
-                        car.reset();
+                    } catch (RuntimeException _) {
                     }
                     int x = (int) Math.round(car.getPos()[0]);
                     int y = (int) Math.round(car.getPos()[1]);
@@ -63,7 +62,7 @@ public class CarController {
     public void addCar(Vehicle car) {cars.add(car);}
 
     // Calls the gas method for each car once
-    void gas(int amount) {
+    public void gas(int amount) {
         double gas = ((double) amount) / 100;
        for (Vehicle car : cars) {
            if (!car.getStored()) {
@@ -72,7 +71,7 @@ public class CarController {
         }
     }
 
-    void brake(int amount) {
+    public void brake(int amount) {
         double brake = ((double) amount) / 100;
         for (Vehicle car : cars
         ) {
@@ -80,7 +79,7 @@ public class CarController {
         }
     }
 
-    void turnLeft() {
+    public void turnLeft() {
         for (Vehicle car : cars) {
             if (!car.getStored()) {
                 car.turnLeft();
@@ -88,11 +87,51 @@ public class CarController {
         }
     }
 
-    void turnRight() {
+    public void turnRight() {
         for (Vehicle car : cars) {
             if (!car.getStored()) {
                 car.turnRight();
             }
         }
     }
+    public void stopAllCars() {
+        for (Vehicle car : cars) {
+            car.stopEngine();
+        }
+    }
+    public void startAllCars(){
+        for (Vehicle car : cars) {
+            if (!car.getStored()) {
+                car.startEngine();
+            }
+        }
+    }
+    public void toggleSaabTurbo(boolean state) {
+        for (Vehicle car : cars) {
+            if (car instanceof Saab95) {
+                if (state) {
+                    ((Saab95) car).setTurboOn();
+                }
+                else {
+                    ((Saab95) car).setTurboOff();
+                }
+            }
+        }
+    }
+
+    public void toggleLiftBed(boolean state) {
+        for (Vehicle car : cars) {
+            if (car instanceof Scania) {
+                if (state) {
+                    ((Scania) car).adjustFlatbed();
+                }
+                else {
+                    ((Scania) car).adjustFlatbed();
+                }
+            }
+        }
+    }
+
+
+
 }

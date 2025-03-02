@@ -17,14 +17,11 @@ import java.util.ArrayList;
  * TODO: Write more actionListeners and wire the rest of the buttons
  **/
 
-public class CarView extends JPanel{
+public class CarView{
     private static final int X = 800;
     private static final int Y = 800;
 
     // The controller member
-    ControlMedium carC;
-
-    DrawPanel drawPanel = new DrawPanel(X, Y-240);
 
     JPanel controlPanel = new JPanel();
 
@@ -70,7 +67,7 @@ public class CarView extends JPanel{
 
     }
 
-    private void initButtonFunctions() {
+    private void initButtonFunctions(ControlMedium carC) {
         // This actionListener is for the gas button only
         // TODO: Create more for each component as necessary
         gasButton.addActionListener(new ActionListener() {
@@ -104,7 +101,7 @@ public class CarView extends JPanel{
 
     // Sets everything in place and fits everything
     // TODO: Take a good look and make sure you understand how these methods and components work
-    private void initComponents(String title) {
+    protected void initComponents(JFrame frame, ControlMedium carC) {
 
         gasSpinner = generateSpinner(0, 0, 100, 1);
         gasSpinner.addChangeListener(new ChangeListener() {
@@ -117,27 +114,27 @@ public class CarView extends JPanel{
         gasPanel.add(gasLabel, BorderLayout.PAGE_START);
         gasPanel.add(gasSpinner, BorderLayout.PAGE_END);
 
-        this.add(gasPanel);
+        frame.add(gasPanel);
 
         generateButtonLayout(controlPanel, 2, 5, buttonArray);
 
         controlPanel.setPreferredSize(new Dimension((X/2)+4, 200));
-        this.add(controlPanel);
+        frame.add(controlPanel);
         controlPanel.setBackground(Color.CYAN);
 
 
         startButton.setBackground(Color.blue);
         startButton.setForeground(Color.green);
         startButton.setPreferredSize(new Dimension(X/5-15,200));
-        this.add(startButton);
+        frame.add(startButton);
 
         stopButton.setBackground(Color.red);
         stopButton.setForeground(Color.black);
         stopButton.setPreferredSize(new Dimension(X/5-15,200));
-        this.add(stopButton);
+        frame.add(stopButton);
 
         //skapar funktion för knapparna
-        initButtonFunctions();
+        initButtonFunctions(carC);
 
     }
 }

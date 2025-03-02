@@ -1,5 +1,8 @@
 package View;
 
+import Controller.CarController;
+import Controller.ControlMedium;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -9,8 +12,8 @@ public class GameGraphics extends JFrame {
     DrawPanel drawPanel = new DrawPanel(X, Y-240);
     CarView carView = new CarView();
 
-    public GameGraphics(String framename){
-        constructInterface(framename);
+    public GameGraphics(String framename, CarController cc){
+        constructInterface(framename, cc);
     }
 
     public DrawPanel getDrawPanel() {
@@ -21,12 +24,12 @@ public class GameGraphics extends JFrame {
         return carView;
     }
 
-    public void constructInterface(String title) {
+    public void constructInterface(String title, CarController cc) {
         this.setTitle(title);
         this.setPreferredSize(new Dimension(X,Y));
         this.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
         this.add(drawPanel);
-        this.add(carView);
+        carView.initComponents(this, cc);
 
         this.pack();
 
