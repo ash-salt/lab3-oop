@@ -9,7 +9,7 @@ public class VehicleTransport extends Vehicle implements HasFlatbed{
     private ArrayList<Vehicle> storage;
     private boolean rampUp;
 
-    public VehicleTransport(double[] position) {
+    public VehicleTransport(int[] position) {
         super(2, 80, Color.gray, "Car Transport");
         this.capacity = 10;
         this.storage = new ArrayList<>();
@@ -41,8 +41,8 @@ public class VehicleTransport extends Vehicle implements HasFlatbed{
     }
 
     public void loadCar(Vehicle c) {
-        double[] transportPos = getPos();
-        double[] cPos = c.getPos();
+        int[] transportPos = getPos();
+        int[] cPos = c.getPos();
 
         if (storage.size() == capacity) {
             throw new ArrayIndexOutOfBoundsException("Car Transport is already at maximum capacity");
@@ -68,7 +68,7 @@ public class VehicleTransport extends Vehicle implements HasFlatbed{
         }
         Vehicle lastVehicle = storage.getLast();
         lastVehicle.setStored(false);
-        double[] newPos = new double[] {getPos()[0] - 0.25, getPos()[1] - 0.25};
+        int[] newPos = new int[] {getPos()[0] - 1, getPos()[1] - 1};
         lastVehicle.setPos(newPos);
         storage.remove(lastVehicle);
     }

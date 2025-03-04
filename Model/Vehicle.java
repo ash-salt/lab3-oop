@@ -10,8 +10,8 @@ public abstract class Vehicle implements Movable{
     private double currentSpeed;
     private Color color;
     private final String modelName;
-    private double x;
-    private double y;
+    private int x;
+    private int y;
     private Direction direction;
     private boolean stored;
 
@@ -98,14 +98,14 @@ public abstract class Vehicle implements Movable{
         setCurrentSpeed(Math.max(getCurrentSpeed() - speedFactor() * amount,0));
     }
 
-    public double[] getPos(){
-        double[] pos = new double[2];
+    public int[] getPos(){
+        int[] pos = new int[2];
         pos[0] = x;
         pos[1] = y;
         return pos;
     }
 
-    protected void setPos(double[] pos){
+    protected void setPos(int[] pos){
         if (pos.length != 2) {
             throw new IllegalArgumentException("incorrect argument length");
         }
@@ -157,6 +157,6 @@ public abstract class Vehicle implements Movable{
 
 
     public void reset() {
-        setPos(new double[]{0,0});
+        setPos(new int[]{0,0});
     }
 }

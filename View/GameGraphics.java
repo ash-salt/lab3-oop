@@ -2,17 +2,20 @@ package View;
 
 import Controller.CarController;
 import Controller.ControlMedium;
+import Model.Vehicle;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class GameGraphics extends JFrame {
     private static final int X = 800;
     private static final int Y = 800;
-    DrawPanel drawPanel = new DrawPanel(X, Y-240);
+    DrawPanel drawPanel;
     CarView carView = new CarView();
 
-    public GameGraphics(String framename, CarController cc){
+    public GameGraphics(String framename, CarController cc, ArrayList<Vehicle> carList){
+        drawPanel = new DrawPanel(X, Y-240, carList);
         constructInterface(framename, cc);
     }
 

@@ -28,7 +28,7 @@ public class CarController implements ControlMedium{
     public GameGraphics frame;
     // A list of cars, modify if needed
     ArrayList<Vehicle> cars = new ArrayList<>();
-    CarShop<Volvo240> shop = new CarShop<Volvo240>(10, new double[] {300,300});
+    CarShop<Volvo240> shop = new CarShop<Volvo240>(10, new int[] {300,300});
 
     //methods:
 
@@ -51,7 +51,6 @@ public class CarController implements ControlMedium{
                         car.turnLeft();
                     }
                     //Bör returnera X och Y värdena så att main kan exekvera denna kod istället
-                    frame.getDrawPanel().moveit(x, y, car);
                     // repaint() calls the paintComponent method of the panel
                     frame.getDrawPanel().repaint();
                 }

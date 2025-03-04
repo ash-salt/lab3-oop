@@ -5,9 +5,9 @@ import java.util.ArrayList;
 public class CarShop<T extends Vehicle> {
     private final int capacity;
     private ArrayList<T> storage;
-    private final double[] position;
+    private final int[] position;
 
-    public CarShop(int capacity, double[] position){
+    public CarShop(int capacity, int[] position){
         if (capacity <= 0) {
             throw new IllegalArgumentException("Capacity can not be negative or 0");
         }
@@ -22,7 +22,7 @@ public class CarShop<T extends Vehicle> {
         }
     }
 
-    public double[] getPos() {
+    public int[] getPos() {
         return position;
     }
 
@@ -42,7 +42,7 @@ public class CarShop<T extends Vehicle> {
     public void releaseCar(T car) {
         car.setStored(false);
         storage.remove(car);
-        double[] newPos = new double[] {getPos()[0] - 0.25, getPos()[1] - 0.25};
+        int[] newPos = new int[] {getPos()[0] - 1, getPos()[1] - 1};
         car.setPos(newPos);
     }
 

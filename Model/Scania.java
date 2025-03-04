@@ -9,7 +9,7 @@ public class Scania extends Vehicle implements HasFlatbed {
 
     private double flatbedAngle;
 
-    public Scania(double[] position) {
+    public Scania(int[] position) {
 
         // Lastbilen har två dörrar, jag vet inte vad enginePower ska vara
         super(2, 100, Color.white, "Model.Scania");

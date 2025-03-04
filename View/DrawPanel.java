@@ -1,10 +1,17 @@
 package View;
 
+import Model.Saab95;
+import Model.Scania;
 import Model.Vehicle;
+import Model.Volvo240;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Dictionary;
+import java.util.Hashtable;
+import java.util.Map;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
@@ -13,36 +20,20 @@ import javax.swing.*;
 public class DrawPanel extends JPanel{
 
     // Just a single image, TODO: Generalize
+    private Map<Vehicle, BufferedImage> carDict = new Hashtable<>();
+
     BufferedImage volvoImage;
     BufferedImage saabImage;
     BufferedImage scaniaImage;
     // To keep track of a single car's position
-    Point volvoPoint = new Point();
-    Point saabPoint = new Point();
-    Point scaniaPoint = new Point();
 
     BufferedImage volvoWorkshopImage;
     Point volvoWorkshopPoint = new Point(300,300);
 
-    // TODO: Make this general for all cars
-    public void moveit(int x, int y, Vehicle car){
-        if (car.getModel().equals("Model.Volvo240")) {
-            volvoPoint.x = x;
-            volvoPoint.y = y;
-        }
-        else if (car.getModel().equals("Model.Saab95")) {
-            saabPoint.x = x;
-            saabPoint.y = y;
-        }
-        if (car.getModel().equals("Model.Scania")) {
-            scaniaPoint.x = x;
-            scaniaPoint.y = y;
-        }
 
-    }
 
     // Initializes the panel and reads the images
-    public DrawPanel(int x, int y) {
+    public DrawPanel(int x, int y, ArrayList<Vehicle> carList) {
         this.setDoubleBuffered(true);
         this.setPreferredSize(new Dimension(x, y));
         this.setBackground(Color.green);
@@ -62,6 +53,23 @@ public class DrawPanel extends JPanel{
         {
             ex.printStackTrace();
         }
+        for (Vehicle car: carList) {
+            BufferedImage selectedImage;
+            if (car instanceof Volvo240) {
+                selectedImage = volvoImage;
+            }
+            else if (car instanceof Saab95) {
+                selectedImage = saabImage;
+            }
+            else if (car instanceof Scania) {
+                selectedImage = scaniaImage;
+            }
+            else {
+                throw new IllegalArgumentException("Vehicle is of unsupported type");
+            }
+
+            carDict.put(car, selectedImage);
+        }
 
     }
 
@@ -70,9 +78,11 @@ public class DrawPanel extends JPanel{
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.drawImage(volvoImage, volvoPoint.x, volvoPoint.y, null); // see javadoc for more info on the parameters
-        g.drawImage(saabImage, saabPoint.x, saabPoint.y, null);
-        g.drawImage(scaniaImage, scaniaPoint.x, scaniaPoint.y, null);
+        for (Map.Entry<Vehicle, BufferedImage> entry : carDict.entrySet()) {
+            Vehicle key = entry.getKey();
+            BufferedImage val = entry.getValue();
+            g.drawImage(val, key.getPos()[0], key.getPos()[1], null);
+        }
         g.drawImage(volvoWorkshopImage, volvoWorkshopPoint.x, volvoWorkshopPoint.y, null);
     }
 }
