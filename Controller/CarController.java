@@ -125,7 +125,7 @@ public class CarController implements ControlMedium{
                     ((Scania) car).adjustFlatbed();
                 }
                 else {
-                    ((Scania) car).adjustFlatbed();
+                    ((Scania) car).adjustFlatbed(0);
                 }
             }
         }
