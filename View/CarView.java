@@ -38,9 +38,11 @@ public class CarView{
     JButton turboOffButton = new JButton("Saab Turbo off");
     JButton liftBedButton = new JButton("Scania Lift Bed");
     JButton lowerBedButton = new JButton("Lower Lift Bed");
+    JButton addCarButton = new JButton("Add Random Car");
+    JButton removeCarButton = new JButton("Remove First Car");
 
     JButton[] buttonArray = {
-            gasButton, leftButton, turboOnButton, liftBedButton, brakeButton, rightButton, turboOffButton, lowerBedButton
+            gasButton, leftButton, turboOnButton, liftBedButton, addCarButton, brakeButton, rightButton, turboOffButton, lowerBedButton, removeCarButton
     };
 
     JButton startButton = new JButton("Start all cars");
@@ -123,6 +125,11 @@ public class CarView{
             @Override
             public void actionPerformed(ActionEvent e) { carC.toggleLiftBed(true);}
         });
+        addCarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) { carC.toggleLiftBed(true);}
+        });
+
 
     }
 
@@ -143,7 +150,7 @@ public class CarView{
 
         frame.add(gasPanel);
 
-        generateButtonLayout(controlPanel, 2, 5, buttonArray);
+        generateButtonLayout(controlPanel, 2, 6, buttonArray);
 
         controlPanel.setPreferredSize(new Dimension((X/2)+4, 200));
         frame.add(controlPanel);

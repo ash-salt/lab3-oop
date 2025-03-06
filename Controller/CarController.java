@@ -1,13 +1,8 @@
 package Controller;
 
 import Model.*;
-import View.CarView;
-import View.GameGraphics;
-
-import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Random;
 
 /*
 * This class represents the Controller part in the MVC pattern.
@@ -19,54 +14,40 @@ public class CarController implements ControlMedium{
     // member fields:
 
     // The delay (ms) corresponds to 20 updates a sec (hz)
-    private final int delay = 50;
     // The timer is started with a listener (see below) that executes the statements
     // each step between delays.
-    public Timer timer = new Timer(delay, new TimerListener());
 
     // The frame that represents this instance View of the MVC pattern
-    public GameGraphics frame;
     // A list of cars, modify if needed
     ArrayList<Vehicle> cars = new ArrayList<>();
-    CarShop<Volvo240> shop = new CarShop<Volvo240>(10, new int[] {300,300});
+    CarShop<Volvo240> shop = new CarShop<>(10, new int[] {300,300});
 
     //methods:
 
     /* Each step the TimerListener moves all the cars in the list and tells the
     * view to update its images. Change this method to your needs.
     * */
-    private class TimerListener implements ActionListener {
-        public void actionPerformed(ActionEvent e) {
-            for (Vehicle car : cars) {
-                if (!car.getStored()) {
-                    car.move();
-                    try {
-                        shop.checkCollideWithVehicle((Volvo240) car);
-                    } catch (RuntimeException _) {
-                    }
-                    int x = (int) Math.round(car.getPos()[0]);
-                    int y = (int) Math.round(car.getPos()[1]);
-                    if (x > 700 || x < 0 || y > 500 || y < 0) {
-                        car.turnLeft();
-                        car.turnLeft();
-                    }
-                    //Bör returnera X och Y värdena så att main kan exekvera denna kod istället
-                    // repaint() calls the paintComponent method of the panel
-                    frame.getDrawPanel().repaint();
-                }
-            }
-        }
+
+    public CarShop<Volvo240> getShop() {
+        return shop;
     }
 
     public void addCar(Vehicle car) {cars.add(car);}
+
+    public ArrayList<Vehicle> getCars() {
+        return cars;
+    }
 
     // Calls the gas method for each car once
     public void gas(int amount) {
         double gas = ((double) amount) / 100;
        for (Vehicle car : cars) {
-           if (!car.getStored()) {
-               car.gas(gas);
+           if (!(car instanceof Scania && ((Scania) car).getRampUp())) {
+               if (!car.getStored()) {
+                   car.gas(gas);
+               }
            }
+
         }
     }
 
@@ -120,7 +101,7 @@ public class CarController implements ControlMedium{
 
     public void toggleLiftBed(boolean state) {
         for (Vehicle car : cars) {
-            if (car instanceof Scania) {
+            if (car instanceof Scania && car.getCurrentSpeed() == 0) {
                 if (state) {
                     ((Scania) car).adjustFlatbed();
                 }
@@ -131,6 +112,19 @@ public class CarController implements ControlMedium{
         }
     }
 
-
+    public void addRandomCar() {
+        Random rand = new Random();
+        int i = rand.nextInt(3);
+        VehicleFactory factory;
+        if (i == 0) {
+            factory = new VolvoFactory();
+        } else if (i == 1) {
+            factory = new SaabFactory();
+        } else {
+            factory = new ScaniaFactory();
+        }
+        Vehicle car = factory.createVehicle(new int[] {0,0});
+        addCar(car);
+    }
 
 }

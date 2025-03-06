@@ -1,6 +1,5 @@
 package View;
 
-import Controller.CarController;
 import Controller.ControlMedium;
 import Model.Vehicle;
 
@@ -14,7 +13,7 @@ public class GameGraphics extends JFrame {
     DrawPanel drawPanel;
     CarView carView = new CarView();
 
-    public GameGraphics(String framename, CarController cc, ArrayList<Vehicle> carList){
+    public GameGraphics(String framename, ControlMedium cc, ArrayList<Vehicle> carList){
         drawPanel = new DrawPanel(X, Y-240, carList);
         constructInterface(framename, cc);
     }
@@ -27,7 +26,7 @@ public class GameGraphics extends JFrame {
         return carView;
     }
 
-    public void constructInterface(String title, CarController cc) {
+    public void constructInterface(String title, ControlMedium cc) {
         this.setTitle(title);
         this.setPreferredSize(new Dimension(X,Y));
         this.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));

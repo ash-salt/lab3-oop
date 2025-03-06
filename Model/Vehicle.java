@@ -33,6 +33,7 @@ public abstract class Vehicle implements Movable{
         stopEngine();
 
     }
+
     public String getModel() { return modelName;}
 
     public boolean getStored() {
@@ -94,7 +95,6 @@ public abstract class Vehicle implements Movable{
     }
 
     private void decrementSpeed(double amount){
-        checkStored();
         setCurrentSpeed(Math.max(getCurrentSpeed() - speedFactor() * amount,0));
     }
 
