@@ -32,6 +32,9 @@ public class TimerListener implements ActionListener {
                     car.turnLeft();
                     car.turnLeft();
                 }
+                for (Vehicle c: cc.getCars()) {
+                    System.out.println(c.getModel());
+                }
                 //Bör returnera X och Y värdena så att main kan exekvera denna kod istället
                 // repaint() calls the paintComponent method of the panel
                 frame.getDrawPanel().repaint();

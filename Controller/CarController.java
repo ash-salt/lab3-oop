@@ -1,6 +1,8 @@
 package Controller;
 
 import Model.*;
+import View.CarAddListener;
+
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -112,19 +114,33 @@ public class CarController implements ControlMedium{
         }
     }
 
-    public void addRandomCar() {
-        Random rand = new Random();
-        int i = rand.nextInt(3);
-        VehicleFactory factory;
-        if (i == 0) {
-            factory = new VolvoFactory();
-        } else if (i == 1) {
-            factory = new SaabFactory();
+    public void addRandomCar(CarAddListener frame) {
+        if (!(cars.size() >= 10)) {
+            Random rand = new Random();
+            int i = rand.nextInt(3);
+            VehicleFactory factory;
+            if (i == 0) {
+                factory = new VolvoFactory();
+            } else if (i == 1) {
+                factory = new SaabFactory();
+            } else {
+                factory = new ScaniaFactory();
+            }
+            Vehicle car = factory.createVehicle(new int[] {0,0});
+            addCar(car);
+            frame.addCar(car);
         } else {
-            factory = new ScaniaFactory();
+            System.out.println("Cannot add more cars");
         }
-        Vehicle car = factory.createVehicle(new int[] {0,0});
-        addCar(car);
+    }
+
+    public void removeFirstCar(CarAddListener listener) {
+        if (!(cars.isEmpty())) {
+            listener.removeCar(cars.getFirst());
+            cars.removeFirst();
+            //System.out.println(cars.getFirst().getModel());
+        }
+
     }
 
 }

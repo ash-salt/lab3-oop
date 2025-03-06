@@ -9,7 +9,6 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Dictionary;
 import java.util.Hashtable;
 import java.util.Map;
 import javax.imageio.ImageIO;
@@ -17,10 +16,12 @@ import javax.swing.*;
 
 // This panel represents the animated part of the view with the car images.
 
-public class DrawPanel extends JPanel{
+public class DrawPanel extends JPanel implements CarAddListener{
 
     // Just a single image, TODO: Generalize
     private Map<Vehicle, BufferedImage> carDict = new Hashtable<>();
+
+
 
     BufferedImage volvoImage;
     BufferedImage saabImage;
@@ -54,23 +55,31 @@ public class DrawPanel extends JPanel{
             ex.printStackTrace();
         }
         for (Vehicle car: carList) {
-            BufferedImage selectedImage;
-            if (car instanceof Volvo240) {
-                selectedImage = volvoImage;
-            }
-            else if (car instanceof Saab95) {
-                selectedImage = saabImage;
-            }
-            else if (car instanceof Scania) {
-                selectedImage = scaniaImage;
-            }
-            else {
-                throw new IllegalArgumentException("Vehicle is of unsupported type");
-            }
+            BufferedImage selectedImage = switch (car) {
+                case Volvo240 volvo240 -> volvoImage;
+                case Saab95 saab95 -> saabImage;
+                case Scania scania -> scaniaImage;
+                case null, default -> throw new IllegalArgumentException("Vehicle is of unsupported type");
+            };
 
             carDict.put(car, selectedImage);
         }
 
+    }
+
+    public void addCar(Vehicle car) {
+        BufferedImage selectedImage;
+        switch (car) {
+            case Volvo240 volvo240 -> selectedImage = volvoImage;
+            case Saab95 saab95 -> selectedImage = saabImage;
+            case Scania scania -> selectedImage = scaniaImage;
+            case null, default -> throw new IllegalArgumentException("Vehicle is of unsupported type");
+        }
+        carDict.put(car, selectedImage);
+    }
+
+    public void removeCar(Vehicle car) {
+        carDict.remove(car);
     }
 
     // This method is called each time the panel updates/refreshes/repaints itself

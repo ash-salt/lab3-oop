@@ -1,5 +1,8 @@
 package Controller;
 
+import Model.Vehicle;
+import View.CarAddListener;
+
 public interface ControlMedium {
     void gas(int amount);
     void brake(int amount);
@@ -9,4 +12,7 @@ public interface ControlMedium {
     void startAllCars();
     void toggleSaabTurbo(boolean state);
     void toggleLiftBed(boolean state);
+    void addRandomCar(CarAddListener listener);
+    void removeFirstCar(CarAddListener listener);
+
 }

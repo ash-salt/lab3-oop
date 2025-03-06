@@ -31,7 +31,7 @@ public class GameGraphics extends JFrame {
         this.setPreferredSize(new Dimension(X,Y));
         this.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
         this.add(drawPanel);
-        carView.initComponents(this, cc);
+        carView.initComponents(this, cc, drawPanel);
 
         this.pack();
 
