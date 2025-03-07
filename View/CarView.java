@@ -1,5 +1,5 @@
 package View;
-import Controller.ControlMedium;
+import Model.ControlMedium;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
@@ -7,7 +7,6 @@ import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
 /**
  * This class represents the full view of the MVC pattern of your car simulator.
@@ -47,8 +46,12 @@ public class CarView{
 
     JButton startButton = new JButton("Start all cars");
     JButton stopButton = new JButton("Stop all cars");
+    JButton[] startButtonList = {startButton, stopButton};
 
 
+    public JSpinner getGasSpinner() {return gasSpinner;}
+    public JButton[] getButtonArray() {return buttonArray;}
+    public JButton[] getStartButtonArray() {return startButtonList;}
     private JSpinner generateSpinner(int initialvalue, int min, int max, int step) {
         SpinnerModel spinnerModel =
                 new SpinnerNumberModel(initialvalue, //initial value
@@ -66,93 +69,11 @@ public class CarView{
 
     }
 
-    private void initButtonFunctions(ControlMedium carC, CarAddListener listener) {
-        // This actionListener is for the gas button only
-        // TODO: Create more for each component as necessary
-        gasButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                carC.gas(gasAmount);
-            }
-        });
-
-        brakeButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                carC.brake(gasAmount);
-            }
-        });
-
-        leftButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                carC.turnLeft();
-            }
-        });
-
-        rightButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                carC.turnRight();
-            }
-        });
-
-        turboOnButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                carC.toggleSaabTurbo(true);
-            }
-        });
-
-        turboOffButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                carC.toggleSaabTurbo(false);
-            }
-        });
-
-        liftBedButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                carC.toggleLiftBed(false);
-            }
-        });
-
-        lowerBedButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) { carC.toggleLiftBed(true);}
-        });
-
-        startButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) { carC.startAllCars();}
-        });
-        stopButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) { carC.stopAllCars();}
-        });
-        addCarButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) { carC.addRandomCar(listener);}
-        });
-        removeCarButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) { carC.removeFirstCar(listener);}
-        });
-
-
-    }
-
     // Sets everything in place and fits everything
     // TODO: Take a good look and make sure you understand how these methods and components work
     protected void initComponents(JFrame frame, ControlMedium carC, CarAddListener listener) {
 
         gasSpinner = generateSpinner(0, 0, 100, 1);
-        gasSpinner.addChangeListener(new ChangeListener() {
-            public void stateChanged(ChangeEvent e) {
-                gasAmount = (int) ((JSpinner)e.getSource()).getValue();
-            }
-        });
 
         gasPanel.setLayout(new BorderLayout());
         gasPanel.add(gasLabel, BorderLayout.PAGE_START);
@@ -176,9 +97,6 @@ public class CarView{
         stopButton.setForeground(Color.black);
         stopButton.setPreferredSize(new Dimension(X/5-15,200));
         frame.add(stopButton);
-
-        //skapar funktion för knapparna
-        initButtonFunctions(carC, listener);
 
     }
 }

@@ -1,6 +1,5 @@
-package Controller;
+package Model;
 
-import Model.*;
 import View.CarAddListener;
 
 import java.util.ArrayList;
@@ -12,7 +11,7 @@ import java.util.Random;
 * modifying the model state and the updating the view.
  */
 
-public class CarController implements ControlMedium{
+public class CarController implements ControlMedium {
     // member fields:
 
     // The delay (ms) corresponds to 20 updates a sec (hz)

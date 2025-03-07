@@ -1,6 +1,6 @@
 package Application;
 
-import Controller.CarController;
+import Model.CarController;
 import Model.Scania;
 import Model.Vehicle;
 import Model.Volvo240;

@@ -1,6 +1,5 @@
-package Controller;
+package Model;
 
-import Model.Vehicle;
 import View.CarAddListener;
 
 public interface ControlMedium {

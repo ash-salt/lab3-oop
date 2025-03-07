@@ -1,6 +1,6 @@
 package View;
 
-import Controller.ControlMedium;
+import Model.ControlMedium;
 import Model.Vehicle;
 
 import javax.swing.*;
