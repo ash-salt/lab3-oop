@@ -37,7 +37,7 @@ public class CarController implements ControlMedium{
     public void addCar(Vehicle car) {cars.add(car);}
 
     public ArrayList<Vehicle> getCars() {
-        return cars;
+        return (ArrayList<Vehicle>) cars.clone();
     }
 
     // Calls the gas method for each car once

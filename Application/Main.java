@@ -19,7 +19,6 @@ public class Main {
 
         Volvo240 volvo = new Volvo240(new int[] {0,0});
 
-        System.out.println("hello world");
         Saab95 saab = new Saab95(new int[] {0,100});
 
         Scania scania = new Scania(new int[] {0,200});
