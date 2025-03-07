@@ -34,8 +34,10 @@ public class TimerListener implements ActionListener {
                 }
                 //Bör returnera X och Y värdena så att main kan exekvera denna kod istället
                 // repaint() calls the paintComponent method of the panel
-                frame.getDrawPanel().repaint();
+
             }
+
         }
+        frame.getDrawPanel().repaint();
     }
 }

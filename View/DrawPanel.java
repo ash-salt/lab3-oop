@@ -91,7 +91,6 @@ public class DrawPanel extends JPanel implements CarAddListener{
             Vehicle key = entry.getKey();
             BufferedImage val = entry.getValue();
             g.drawImage(val, key.getPos()[0], key.getPos()[1], null);
-            System.out.println(key.getModel());
         }
         g.drawImage(volvoWorkshopImage, volvoWorkshopPoint.x, volvoWorkshopPoint.y, null);
     }
