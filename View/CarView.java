@@ -122,6 +122,15 @@ public class CarView{
             @Override
             public void actionPerformed(ActionEvent e) { carC.toggleLiftBed(true);}
         });
+
+        startButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) { carC.startAllCars();}
+        });
+        stopButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) { carC.stopAllCars();}
+        });
         addCarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) { carC.addRandomCar(listener);}
